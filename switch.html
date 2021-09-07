@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- 创建容器 -->
+    <div id="text"></div>
+</body>
+
+</html>
+<script src="./js/react.development.js"></script>
+<script src="./js/react-dom.development.js"></script>
+<script src="./js/babel.min.js"></script>
+<script type="text/babel">
+    // 创建类式组件
+    class Mycomponent extends React.Component {
+        // 创建构造器传入props
+        constructor(props) {
+            // 接收props
+            super(props)
+            // 给状态复制，props里面的state是null新版的react是{}
+            this.state = {
+                hot: true,
+                wind: '微风'
+            }
+            //解决this指向问题
+            this.weathers = this.weather.bind(this)
+        }
+
+        // 当组件第一次被渲染的时候调用render
+        render() {
+            // 把state里面的值解构赋值
+            const { hot , wind } = this.state
+            // 引用下面的方法react语法调用函数要{}不加()区别于js
+            console.log(hot);
+            return <h1 onClick={this.weathers}>今天的天气{hot ? '很热':'不热'},{wind}</h1>
+        }
+        weather() {
+            // console.log("被点击了");
+            const wishot = this.state.hot
+            console.log(wishot);
+            // console.log(ishot);
+            // 不能直接改变state必须通过setstate来改变
+            this.setState({ hot:!wishot })
+        }
+    }
+    ReactDOM.render(<Mycomponent />, document.getElementById('text'))
+</script>
